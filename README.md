@@ -11,3 +11,7 @@ npm i nodemon -D
 
 <!-- start server using dev script in package.json -->
 npm run dev
+
+<!-- install MySQL https://www.mysql.com/ or XAMPP from https://www.apachefriends.org/-->
+
+mysql -u root -p

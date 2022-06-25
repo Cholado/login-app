@@ -8,3 +8,6 @@ npm i express express-handlebars express-session mysql express-mysql-session mor
 
 <!-- set up node dev-dependencies-->
 npm i nodemon -D
+
+<!-- start server using dev script in package.json -->
+npm run dev

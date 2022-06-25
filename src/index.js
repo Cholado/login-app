@@ -41,12 +41,29 @@ The code below will
 console log requests made:
 */
 app.use(morgan('dev'));
+/*
+The code below will
+restrict client input to simple data only:
+*/
+app.use(express.urlencoded({extended: false}))
+/*
+The code below will
+allow client input to input json format:
+*/
+app.use(express.json());
 
 // global variables
+app.use((req, res, next) => {
+
+    next();
+});
 
 // routes
 app.use(require('./routes/index.js'));
+app.use(require('./routes/authentication.js'));
+
 // public
+app.use(express.static(path.join(__dirname, 'public')));
 
 // server trigger
 app.listen(app.get('port'), () => {

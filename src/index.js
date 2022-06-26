@@ -7,6 +7,15 @@ const exphbs = require('express-handlebars');
 // set up path
 const path = require('path');
 const { extname } = require('path');
+// set up module that display flash messages to the user
+const flash = require('connect-flash');
+// set up sessions to save messages in them
+const session = require('express-session');
+// set up storage for session data in database
+const MySQLStore = require('express-mysql-session');
+
+// set up access to database keys | info
+const { database } = require('./keys');
 
 // initializations
 /*
@@ -25,7 +34,7 @@ app.set('port', process.env.PORT || 4000);
 The code below set up
 handlebars engine path for views:
 */
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs.engine({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -38,6 +47,23 @@ app.set('view engine', '.hbs');
 // middlewares
 /*
 The code below will
+Create a session, session ID stored in cookie
+Session data is stored server-side in the database:
+*/
+app.use(session({
+    secret: 'choladito',
+    resave: false,
+    saveUninitialized: false,
+    store: new MySQLStore(database)
+  }));
+/*
+The code below will
+send a message whenever a user 
+is redirecting to a specified web-page:
+*/
+app.use(flash());
+/*
+The code below will
 console log requests made:
 */
 app.use(morgan('dev'));
@@ -45,7 +71,7 @@ app.use(morgan('dev'));
 The code below will
 restrict client input to simple data only:
 */
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: false}));
 /*
 The code below will
 allow client input to input json format:
@@ -54,7 +80,7 @@ app.use(express.json());
 
 // global variables
 app.use((req, res, next) => {
-
+    app.locals.success = req.flash('success');
     next();
 });
 

@@ -17,6 +17,7 @@ router.post('/create', async (req, res) => {
         description
     };
     await db.query('INSERT INTO crud SET ?', [item]);
+    req.flash('success', 'Item Created Successfully');
     res.redirect('/crud');
 });
 
@@ -30,6 +31,7 @@ router.get('/', async (req, res) => {
 router.get('/delete/:id', async (req, res) => {
     const { id } = req.params;
     await db.query('DELETE FROM crud WHERE ID = ?', [id]);
+    req.flash('success', 'Item Deleted Successfully');
     res.redirect('/crud');
 });
 
@@ -50,6 +52,7 @@ router.post('/update/:id', async (req, res) => {
         url
     };
     await db.query('UPDATE crud SET ? WHERE id = ?', [newItem, id]);
+    req.flash('success', 'Item Updated Successfully');
     res.redirect('/crud');
 });
 

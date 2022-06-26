@@ -13,6 +13,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 // set up storage for session data in database
 const MySQLStore = require('express-mysql-session');
+// set up  authentication middleware for Node.js
+const passport = require('passport');
 
 // set up access to database keys | info
 const { database } = require('./keys');
@@ -23,6 +25,11 @@ The code below will execute express
 & store the object in app:
 */
 const app = express();
+/*
+The code below will
+load authentication settings | method:
+*/
+require('./lib/passport');
 
 // settings (express server config)
 /*
@@ -77,6 +84,12 @@ The code below will
 allow client input to input json format:
 */
 app.use(express.json());
+/*
+The code below will
+allow authentication using a username and password:
+*/
+app.use(passport.initialize());
+app.use(passport.session());
 
 // global variables
 app.use((req, res, next) => {

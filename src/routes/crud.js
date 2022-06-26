@@ -33,6 +33,27 @@ router.get('/delete/:id', async (req, res) => {
     res.redirect('/crud');
 });
 
+// set up Update item in database
+// ask what item needs update
+router.get('/update/:id', async (req, res) => {
+    const { id } = req.params;
+    const update = await db.query('SELECT * FROM crud WHERE id = ?', [id]);
+    res.render('crud/update', { update: update[0]});
+});
+// update
+router.post('/update/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, description, url} = req.body; 
+    const newItem = {
+        title,
+        description,
+        url
+    };
+    await db.query('UPDATE crud SET ? WHERE id = ?', [newItem, id]);
+    res.redirect('/crud');
+});
+
+
 // set up database
 const db = require('../database');
 

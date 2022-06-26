@@ -18,4 +18,9 @@ net start MySQL80
 
 net stop MySQL80
 
+ER_NOT_SUPPORTED_AUTH_MODE
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YourPassword';
+FLUSH PRIVILEGES;
+
 mysql -u root -p

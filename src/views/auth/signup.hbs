@@ -1,0 +1,55 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Sign Up</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/signup" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="username" placeholder="User Name" class="form-control" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" placeholder="Password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="lastname" placeholder="Last Name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="idtype" placeholder="Identification Type" class="form-control" required>
+                                <option value="CC">C.C.</option>
+                                <option value="TI">T.I.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="idnum" placeholder="Identification Number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="phone" placeholder="Phone Number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="mail" placeholder="Email Address" class="form-control" id="mail" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="cmail" placeholder="Confirm Email Address" class="form-control" id="cmail" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function confirmEmail() {
+        var mail = document.getElementById("mail").value
+        var cmail = document.getElementById("cmail").value
+        if(mail != cmail) {
+            alert('Email Not Matching');
+        }
+    }
+</script>

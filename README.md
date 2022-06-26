@@ -14,4 +14,8 @@ npm run dev
 
 <!-- install MySQL https://www.mysql.com/ or XAMPP from https://www.apachefriends.org/-->
 
+net start MySQL80
+
+net stop MySQL80
+
 mysql -u root -p

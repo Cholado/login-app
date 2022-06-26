@@ -61,6 +61,7 @@ app.use((req, res, next) => {
 // routes
 app.use(require('./routes/index.js'));
 app.use(require('./routes/authentication.js'));
+app.use('/crud', require('./routes/crud'));
 
 // public
 app.use(express.static(path.join(__dirname, 'public')));

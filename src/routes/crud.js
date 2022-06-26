@@ -26,6 +26,13 @@ router.get('/', async (req, res) => {
     res.render('crud/read', { read });
 });
 
+// set up Delete item in database
+router.get('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    await db.query('DELETE FROM crud WHERE ID = ?', [id]);
+    res.redirect('/crud');
+});
+
 // set up database
 const db = require('../database');
 

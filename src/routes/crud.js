@@ -3,13 +3,18 @@ const express = require('express');
 // set up router from express:
 const router = express.Router();
 
+// set up database
+const db = require('../database');
+// set up verify for user logged in
+const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
+
 // set up CRUD create page render
-router.get('/create', (req, res) => {
+router.get('/create', isLoggedIn, (req, res) => {
     res.render('crud/create')
 });
 
 // set up Create item in database, wait for the promise
-router.post('/create', async (req, res) => {
+router.post('/create', isLoggedIn, async (req, res) => {
     const {title, url, description} = req.body;
     const item = {
         title,
@@ -22,13 +27,13 @@ router.post('/create', async (req, res) => {
 });
 
 // set up Read item in database
-router.get('/', async (req, res) => {
+router.get('/', isLoggedIn, async (req, res) => {
     const read = await db.query('SELECT * FROM crud');
     res.render('crud/read', { read });
 });
 
 // set up Delete item in database
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await db.query('DELETE FROM crud WHERE ID = ?', [id]);
     req.flash('success', 'Item Deleted Successfully');
@@ -37,13 +42,13 @@ router.get('/delete/:id', async (req, res) => {
 
 // set up Update item in database
 // ask what item needs update
-router.get('/update/:id', async (req, res) => {
+router.get('/update/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     const update = await db.query('SELECT * FROM crud WHERE id = ?', [id]);
     res.render('crud/update', { update: update[0]});
 });
 // update
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     const { title, description, url} = req.body; 
     const newItem = {
@@ -55,9 +60,5 @@ router.post('/update/:id', async (req, res) => {
     req.flash('success', 'Item Updated Successfully');
     res.redirect('/crud');
 });
-
-
-// set up database
-const db = require('../database');
 
 module.exports = router;

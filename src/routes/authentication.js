@@ -25,6 +25,13 @@ router.get('/signin', isNotLoggedIn, (req, res) => {
 });
 // set up sign in verify info match from database
 router.post('/signin', (req, res, next) => {
+    req.check('username', 'Username is Required').notEmpty();
+    req.check('password', 'Password is Required').notEmpty();
+    const errors = req.validationErrors();
+    if (errors.length > 0) {
+        req.flash('message', errors[0].msg);
+        res.redirect('/signin');
+    }
     passport.authenticate('local.signin', {
         successRedirect: '/profile',
         failureRedirect: '/signin',
@@ -33,7 +40,7 @@ router.post('/signin', (req, res, next) => {
 });
 // set up logout 
 router.get('/logout', (req, res) => {
-    req.logout(function(err) {
+    req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/');
     });

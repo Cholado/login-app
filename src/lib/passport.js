@@ -39,6 +39,11 @@ passport.use('local.signup', new LocalStrategy({
     const { idnum } = req.body;
     const { phone } = req.body;
     const { mail } = req.body;
+    const { cmail } = req.body;
+
+    if (mail !== cmail) {
+        return done(null, false, req.flash('message', 'Email & confirm email must be same.'));
+    }
 
     let newUser = {
         username,

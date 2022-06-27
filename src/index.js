@@ -15,6 +15,8 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session');
 // set up  authentication middleware for Node.js
 const passport = require('passport');
+// set up validate for empty & email not equal confirm
+const validator = require('express-validator');
 
 // set up access to database keys | info
 const { database } = require('./keys');
@@ -90,6 +92,8 @@ allow authentication using a username and password:
 */
 app.use(passport.initialize());
 app.use(passport.session());
+// set up validator
+app.use(validator());
 
 // global variables
 app.use((req, res, next) => {

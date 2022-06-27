@@ -61,3 +61,5 @@ Close the MySQL console `quit`
 You shall be ready to run the app by typing `npm run dev` in the console
 
 Open your web browser and connect to `http://localhost:4000/` to use the App
+
+Click on the start button, register in sign up, manage your items, log out, sign in, etc.

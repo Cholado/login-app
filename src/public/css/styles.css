@@ -56,3 +56,7 @@ body {
   background: #323237;
   color: white;
 }
+
+.iti {
+  display: flex;
+}
